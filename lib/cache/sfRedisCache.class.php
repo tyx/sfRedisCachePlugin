@@ -21,7 +21,7 @@ class sfRedisCache extends sfCache
    *
    * * mode:   Defines if we work with the "compiled" (faster) or "shared" (easier) library (default to "shared")
    * * port:   The default port (default to 6379)
-   * * server: The default server (default to 127.0.0.1)
+   * * host: The default server (default to 127.0.0.1)
    * 
    * @see sfCache
    */
@@ -46,11 +46,11 @@ class sfRedisCache extends sfCache
 
     $class = $this->getOption('class', 'Redis');
     $this->redis = $this->getOption('redis') ? $this->getOption('redis') : new $class;
-    $this->redis->connect($this->getOption('server', '127.0.0.1'), $this->getOption('port', 6379));
+    $this->redis->connect($this->getOption('host', '127.0.0.1'), $this->getOption('port', 6379));
 
     if (!$this->redis->ping())
     {
-      throw new sfInitializationException(sprintf("Could not connect to redis server at %s:%s", $this->getOption('server', '127.0.0.1'), $this->getOption('port', 6379)));
+      throw new sfInitializationException(sprintf("Could not connect to redis server at %s:%s", $this->getOption('host', '127.0.0.1'), $this->getOption('port', 6379)));
     }
   }
 
