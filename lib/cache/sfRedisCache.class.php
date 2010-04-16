@@ -94,7 +94,7 @@ class sfRedisCache extends sfCache
     else
     {
       $this->setMetadata($key, $lifetime);
-      $response = $this->redis->set($this->getOption('prefix').$key, $data, false);
+      $response = $this->redis->set($this->getOption('prefix').$key, $data);
       $this->redis->expire($this->getOption('prefix').$key, $lifetime);
     }
 
