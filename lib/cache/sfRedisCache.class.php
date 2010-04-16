@@ -173,6 +173,13 @@ class sfRedisCache extends sfCache
     $keys = $this->redis->keys($this->getOption('prefix').$pattern);
 
     $regexp = self::patternToRegexp($this->getOption('prefix').$pattern);
+    
+    // keys function from PHP5Redis lib return string
+    if (is_string($keys))
+    {
+      $keys = explode(' ', $keys);
+    }
+    
     foreach ($keys as $key)
     {
       if (preg_match($regexp, $key))
