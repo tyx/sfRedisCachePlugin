@@ -170,7 +170,7 @@ class sfRedisCache extends sfCache
    */
   public function removePattern($pattern)
   {
-    $keys = $this->redis->keys($this->getOption('prefix').$pattern);
+    $keys = call_user_func_array(array($this->redis, $this->getOption('keys_method', 'keys')), array($this->getOption('prefix').$pattern));
 
     $regexp = self::patternToRegexp($this->getOption('prefix').$pattern);
     
